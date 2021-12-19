@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Search from './Search';
+import Forecast from './Forecast';
 
 function App() {
   const [weather, setWeather] = useState({});
@@ -40,9 +41,8 @@ function App() {
               <div className="weather">{weather.forecastTimestamps[0].conditionCode}</div>
             </div>
           </div>
-          <div className="forecast-box">
+          <Forecast weather = {weather}/>
 
-          </div>
         </div>
          ) : ('')}
       </main>

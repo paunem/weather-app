@@ -21,7 +21,7 @@ function Forecast(props) {
     for (const hoursForecast of props.weather.forecastTimestamps) {
       let hourTime = new Date(hoursForecast.forecastTimeUtc);
       if (hourTime.getDay() != date.getDay()) {
-        daysForecast.push({ day: date.getDay(), date: hourTime, forecast: dayForecast });
+        daysForecast.push({ day: date.getDay(), date: date, forecast: dayForecast });
         date = hourTime;
         dayForecast = [];
       }

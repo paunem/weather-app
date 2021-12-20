@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import './Forecast.css';
-import {dateBuilder} from './utils';
+import React, { useState, useEffect } from "react";
+import "./Forecast.css";
+import { dateBuilder } from "./utils";
 
 function Forecast(props) {
   const [days, setDays] = useState([]);
   const [openedDay, setOpenedDay] = useState();
   const [isVisible, setIsVisible] = useState(false);
 
-  const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",];
+  const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   useEffect(() => {
     formatForecastData();
@@ -18,21 +18,32 @@ function Forecast(props) {
     const daysForecast = [];
     let dayForecast = [];
     let date = new Date();
+
     for (const hoursForecast of props.weather.forecastTimestamps) {
-      let hourTime = new Date(hoursForecast.forecastTimeUtc);
-      if (hourTime.getDay() != date.getDay()) {
-        daysForecast.push({ day: date.getDay(), date: date, forecast: dayForecast });
-        date = hourTime;
+      let timeStamp = new Date(hoursForecast.forecastTimeUtc);
+      if (timeStamp.getDay() != date.getDay()) {
+        daysForecast.push({
+          day: date.getDay(),
+          date: date,
+          forecast: dayForecast
+        });
+        date = timeStamp;
         dayForecast = [];
       }
       dayForecast.push({
-        hour: hourTime.getHours(),
+        hour: timeStamp.getHours(),
         temp: Math.round(hoursForecast.airTemperature),
         windSpeed: hoursForecast.windSpeed,
         windGust: hoursForecast.windGust,
-        condition: hoursForecast.conditionCode.replace('-', ' '),
+        condition: hoursForecast.conditionCode.replace("-", " "),
       });
-    }
+    };
+    daysForecast.push({
+      day: date.getDay(),
+      date: date,
+      forecast: dayForecast
+    });
+
     setDays(daysForecast);
     setOpenedDay(daysForecast[0].day);
   };

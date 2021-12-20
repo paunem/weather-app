@@ -39,6 +39,7 @@ function Search(props) {
         .then(res => res.json())
         .then(result => {
           setQuery("");
+          result.forecastTimestamps = result.forecastTimestamps.splice(3, result.forecastTimestamps.length);
           props.parentCallback(result);
         })
         .catch(() => {

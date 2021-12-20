@@ -1,44 +1,55 @@
 .forecast-box {
-  width: 50%;
-  float: left;
-  padding: 10px 20px;
+  width: 60%;
   box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
 
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
+  display: flex;
 }
 
 .weekdays-box {
   color: #fff;
-  font-size: 20px;
-  font-weight: 300;
-  text-align: left;
-  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
-
-  width: 20%;
-  float: left;
-}
-
-.day-box {
-  margin: 5px 0;
-}
-
-.forecast-table {
-    width: 80%;
-}
-
-.legend-box {
-    color: #fff;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 300;
   text-align: center;
   text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-box {
+  padding: 18px 10px;
+  border-radius: 16px;
+}
+
+.forecast-table {
+  width: 100%;
+}
+
+.legend-box {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+  position: fixed top;
 }
 
 .hour-box {
-    color: #fff;
+  color: #fff;
   font-size: 15px;
   font-weight: 300;
   text-align: center;
   text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
 }
+
+.table-box {
+  width: 100%;
+  margin: 10px;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+

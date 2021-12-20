@@ -24,29 +24,30 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <main>
-        <Search parentCallback = {handleCallback}/>
-        {(typeof weather.place != "undefined") ? (
-        <div>
+    <main>
+      <Search parentCallback={handleCallback} />
+      {typeof weather.place != "undefined" && (
+        <div className="conteiner">
           <div className="place-box">
             <div className="location-box">
-              <div className="location">{weather.place.name}, {weather.place.country}</div>
+              <div className="location">
+                {weather.place.name}, {weather.place.country}
+              </div>
               <div className="date">{dateBuilder(new Date())}</div>
             </div>
             <div className="weather-box">
               <div className="temp">
                 {Math.round(weather.forecastTimestamps[0].airTemperature)}°c
               </div>
-              <div className="weather">{weather.forecastTimestamps[0].conditionCode}</div>
+              <div className="weather">
+                {weather.forecastTimestamps[0].conditionCode}
+              </div>
             </div>
           </div>
-          <Forecast weather = {weather}/>
-
+          <Forecast weather={weather} />
         </div>
-         ) : ('')}
-      </main>
-    </div>
+      )}
+    </main>
   );
 }
 

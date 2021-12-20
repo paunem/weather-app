@@ -4,25 +4,14 @@ import './Forecast.css';
 function Forecast(props) {
     const [days, setDays] = useState([]);
     const [openedDay, setOpenedDay] = useState(4);
+    const [isVisible, setIsVisible] = useState(false);
 
     const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     useEffect(() => {
-        //sort_days();
         formatForecastData();
+        setIsVisible(true);
     }, []);
-
-    const sort_days = () => {
-        const day_of_week = new Date().getDay();
-        const list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const sorted_list = list.slice(day_of_week).concat(list.slice(0, day_of_week));
-
-        const days = [];
-        for(const elem of sorted_list) {
-            days.push({day: elem, time: '', temp: '', windSpeed: ''});
-        }
-        setDays(days);
-    };
 
     const formatForecastData = () => {
         const days = [];
@@ -42,40 +31,55 @@ function Forecast(props) {
                 windGust: hoursForecast.windGust,
                 condition: hoursForecast.conditionCode});
         }
-        console.log(days);
         setDays(days);
+        //console.log(days);
     };
 
   return (
-    <div>
+    <>
       <div className="forecast-box">
         <div className="weekdays-box">
           {days.map((value) => (
-            <div className="day-box" onClick = {() => setOpenedDay(value.day)}>
+            <div
+              className="day-box"
+              onClick={() => setOpenedDay(value.day)}
+              style={{
+                background:
+                  value.day == openedDay ? "rgba(255, 255, 255, 0.2)" : "",
+              }}
+            >
               {weekDays[value.day]}
             </div>
           ))}
         </div>
-        <table className="forecast-table">
-            <tr className="legend-box">
-                <td>Time</td>
-                <td>Temperature</td>
-                <td>Wind speed</td>
-                <td>Gust speed</td>
-                <td>Condition</td>
-            </tr>
-            {days[openedDay].forecast.map((value) => (
-            <tr className="hour-box">
-                <td>{value.hour}:00</td>
-                <td>{value.temp} °C</td>
-                <td>{value.windSpeed} m/s</td>
-                <td>{value.windGust} m/s</td>
-                <td>{value.condition}</td>
-            </tr>
-          ))}
-        </table>
+        <div className="table-box">
+          {isVisible && (
+            <table className="forecast-table">
+              <thead>
+                <tr className="legend-box">
+                  <td>Time</td>
+                  <td>Temperature</td>
+                  <td>Wind speed</td>
+                  <td>Gust speed</td>
+                  <td>Condition</td>
+                </tr>
+                </thead>
+                <tbody>
+                {days[openedDay].forecast.map((value) => (
+                  <tr className="hour-box">
+                    <td>{value.hour}:00</td>
+                    <td>{value.temp} °C</td>
+                    <td>{value.windSpeed} m/s</td>
+                    <td>{value.windGust} m/s</td>
+                    <td>{value.condition}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

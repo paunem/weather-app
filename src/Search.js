@@ -30,7 +30,7 @@ function Search(props) {
         .then((res) => res.json())
         .then((result) => {
           setQuery("");
-          console.log(result);
+          //console.log(result);
           props.parentCallback(result);
         });
     };
@@ -61,8 +61,12 @@ function Search(props) {
         </div>
         {filteredData.length !== 0 &&
         <div className="suggestions-box">
-          {filteredData.slice(0, 7).map((value) => (
-            <div className="dataItem" onMouseDown = {() => setQuery(value.code)}>{value.name}</div>
+          {filteredData.map((value) => (
+            <div className="dataItem" onMouseDown = {() => {
+              setQuery(value.code);
+              console.log(query)
+              //getWeatherData();
+            }}>{value.name}</div>
           ))}
         </div>}
       </div>

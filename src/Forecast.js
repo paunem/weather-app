@@ -11,16 +11,16 @@ function Forecast(props) {
   useEffect(() => {
     formatForecastData();
     setIsVisible(true);
-  }, []);
+  }, [props]);
 
   const formatForecastData = () => {
-    const days = [];
+    const daysForecast = [];
     let dayForecast = [];
     let date = new Date();
     for (const hoursForecast of props.weather.forecastTimestamps) {
       let hourTime = new Date(hoursForecast.forecastTimeUtc);
       if (hourTime.getDay() != date.getDay()) {
-        days.push({ day: date.getDay(), forecast: dayForecast });
+        daysForecast.push({ day: date.getDay(), forecast: dayForecast });
         date = hourTime;
         dayForecast = [];
       }
@@ -29,11 +29,11 @@ function Forecast(props) {
         temp: hoursForecast.airTemperature,
         windSpeed: hoursForecast.windSpeed,
         windGust: hoursForecast.windGust,
-        condition: hoursForecast.conditionCode,
+        condition: hoursForecast.conditionCode.replace('-', ' '),
       });
     }
-    setDays(days);
-    setOpenedDay(days[0].day);
+    setDays(daysForecast);
+    setOpenedDay(daysForecast[0].day);
   };
 
   return (

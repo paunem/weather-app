@@ -4,7 +4,7 @@ import './Search.css';
 const api = "https://api.meteo.lt/v1";
 
 function Search(props) {
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('panevezys');
     const [places, setPlaces] = useState({});
     const [filteredData, setFilteredData] = useState([]);
 
@@ -14,8 +14,7 @@ function Search(props) {
         .then((result) => {
           setPlaces(result);
         });
-        setQuery('Vilnius');
-        //getWeatherData();
+        getWeatherData();
     }, []);
   
     const search = (event) => {
@@ -27,11 +26,13 @@ function Search(props) {
 
     function getWeatherData() {
       fetch(`${api}/places/${query}/forecasts/long-term`)
-        .then((res) => res.json())
-        .then((result) => {
+        .then(res => res.json())
+        .then(result => {
           setQuery("");
-          //console.log(result);
           props.parentCallback(result);
+        })
+        .catch(() => {
+           alert(query + ' does not exist');
         });
     };
 
@@ -64,8 +65,6 @@ function Search(props) {
           {filteredData.map((value) => (
             <div className="dataItem" onMouseDown = {() => {
               setQuery(value.code);
-              console.log(query)
-              //getWeatherData();
             }}>{value.name}</div>
           ))}
         </div>}

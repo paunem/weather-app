@@ -26,7 +26,7 @@ function Forecast(props) {
       }
       dayForecast.push({
         hour: hourTime.getHours(),
-        temp: hoursForecast.airTemperature,
+        temp: Math.round(hoursForecast.airTemperature),
         windSpeed: hoursForecast.windSpeed,
         windGust: hoursForecast.windGust,
         condition: hoursForecast.conditionCode.replace('-', ' '),
@@ -41,7 +41,7 @@ function Forecast(props) {
       <div className="forecast-box">
         <div className="weekdays-box">
           {days.map((value) => (
-            <div
+            <div key={value.day}
               className="day-box"
               onClick={() => setOpenedDay(value.day)}
               style={{
@@ -58,16 +58,16 @@ function Forecast(props) {
             <table className="forecast-table">
               <thead>
                 <tr className="legend-box">
-                  <td>Time</td>
-                  <td>Temperature</td>
-                  <td>Wind speed</td>
-                  <td>Gust speed</td>
-                  <td>Condition</td>
+                  <th>Time</th>
+                  <th>Temperature</th>
+                  <th>Wind speed</th>
+                  <th>Gust speed</th>
+                  <th>Condition</th>
                 </tr>
               </thead>
               <tbody>
                 {days[days.findIndex((e) => e.day == openedDay)].forecast.map((value) => (
-                    <tr className="hour-box">
+                    <tr className="hour-box" key={value.hour}>
                       <td>{value.hour}:00</td>
                       <td>{value.temp} °C</td>
                       <td>{value.windSpeed} m/s</td>

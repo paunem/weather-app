@@ -81,7 +81,7 @@ function Forecast(props) {
               <tbody>
                 {days[days.findIndex((e) => e.day == openedDay)].forecast.map((value) => (
                     <tr className="hour-box" key={value.hour}>
-                      <td>{value.hour}:00</td>
+                      <td>{("0" + value.hour).slice(-2)}:00</td>
                       <td>{value.temp} °C</td>
                       <td>{value.windSpeed} m/s</td>
                       <td>{value.windGust} m/s</td>

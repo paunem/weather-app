@@ -46,7 +46,7 @@ function Forecast(props) {
               onClick={() => setOpenedDay(value.day)}
               style={{
                 background:
-                  value.day == openedDay ? "rgba(255, 255, 255, 0.2)" : "",
+                  value.day == openedDay ? "rgba(255, 255, 255, 0.4)" : "",
               }}
             >
               {weekDays[value.day]}

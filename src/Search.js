@@ -4,9 +4,19 @@ import './Search.css';
 const api = "https://api.meteo.lt/v1";
 
 function Search(props) {
-    const [query, setQuery] = useState('panevezys');
+    const [query, setQuery] = useState('');
     const [places, setPlaces] = useState({});
     const [filteredData, setFilteredData] = useState([]);
+
+    const biggestCities = [
+      { name: "Vilnius", code: "vilnius" },
+      { name: "Kaunas", code: "kaunas" },
+      { name: "Klaipėda", code: "klaipeda" },
+      { name: "Šiauliai", code: "siauliai" },
+      { name: "Panevėžys", code: "panevezys" },
+      { name: "Alytus", code: "alytus" },
+      { name: "Marijampolė", code: "marijampole" },
+    ];
 
     useEffect(() => {
         fetch(`${api}/places`)
@@ -14,7 +24,7 @@ function Search(props) {
         .then((result) => {
           setPlaces(result);
         });
-        getWeatherData();
+        getWeatherData('vilnius');
     }, []);
   
     const search = (event) => {
@@ -24,15 +34,15 @@ function Search(props) {
       }
     };
 
-    function getWeatherData() {
-      fetch(`${api}/places/${query}/forecasts/long-term`)
+    function getWeatherData(querya=query) {
+      fetch(`${api}/places/${querya}/forecasts/long-term`)
         .then(res => res.json())
         .then(result => {
           setQuery("");
           props.parentCallback(result);
         })
         .catch(() => {
-           alert(query + ' does not exist');
+           alert(querya + ' does not exist');
         });
     };
 
@@ -47,7 +57,7 @@ function Search(props) {
     };
 
     return (
-      <div>
+      <>
         <div className="search-box">
           <input
             type="text"
@@ -60,15 +70,22 @@ function Search(props) {
             onFocus={handleFilter}
           />
         </div>
+        <div className="city-conteiner">
+        {biggestCities.map((value) => (
+            <div key={value.code} onClick = {() => {
+              getWeatherData(value.code);
+            }}>{value.name}</div>
+          ))}
+        </div>
         {filteredData.length !== 0 &&
         <div className="suggestions-box">
           {filteredData.map((value) => (
-            <div className="dataItem" onMouseDown = {() => {
+            <div key={value.code} className="dataItem" onMouseDown = {() => {
               setQuery(value.code);
             }}>{value.name}</div>
           ))}
         </div>}
-      </div>
+      </>
     );
 }
 

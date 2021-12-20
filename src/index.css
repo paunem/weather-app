@@ -10,7 +10,7 @@ body {
   background-size: cover;
   background-position: center;
   transition: 0.4s ease;
-  padding: 30px;
+  padding: 20px 30px;
 }
 
 main {
@@ -18,7 +18,7 @@ main {
 }
 
 .conteiner {
-  height: 450px;
+  height: 400px;
   display: flex;
   justify-content: space-between;
 }

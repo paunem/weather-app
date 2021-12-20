@@ -1,6 +1,6 @@
 .search-box {
   width: 100%;
-  margin: 0 0 75px;
+  margin-bottom: 20px;
 }
 
 .search-box .search-bar {
@@ -32,10 +32,10 @@
   position: absolute;
   width: 40%;
   height: 150px;
-  margin-top: -70px;
+  margin-top: -95px;
 
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.75);
   box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
   
   overflow: hidden;
@@ -54,4 +54,27 @@
 
 .suggestions-box .dataItem:hover {
     background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .city-conteiner {
+    color: #FFF;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .city-conteiner div {
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    margin: 0 auto;
+  }
+
+  .city-conteiner div:hover {
+    background-color: rgba(255, 255, 255, 0.4);
   }

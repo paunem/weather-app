@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import "./Forecast.css";
+import React, { useState, useEffect } from 'react';
+import './Forecast.css';
+import {dateBuilder} from './utils';
 
 function Forecast(props) {
   const [days, setDays] = useState([]);
@@ -20,7 +21,7 @@ function Forecast(props) {
     for (const hoursForecast of props.weather.forecastTimestamps) {
       let hourTime = new Date(hoursForecast.forecastTimeUtc);
       if (hourTime.getDay() != date.getDay()) {
-        daysForecast.push({ day: date.getDay(), forecast: dayForecast });
+        daysForecast.push({ day: date.getDay(), date: hourTime, forecast: dayForecast });
         date = hourTime;
         dayForecast = [];
       }
@@ -49,7 +50,8 @@ function Forecast(props) {
                   value.day == openedDay ? "rgba(255, 255, 255, 0.4)" : "",
               }}
             >
-              {weekDays[value.day]}
+              <div className="day-name">{weekDays[value.day]}</div>
+              <div className="day-date">{dateBuilder(value.date, false)}</div>
             </div>
           ))}
         </div>
